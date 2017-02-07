@@ -1,21 +1,21 @@
 #include "treemodel.h"
 #include "treeview.h"
+#include "treeheaderitem.h"
 
 TreeModel::TreeModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    QHash<Column, QVariant> rootData;
-    rootData[FIRST] = "Наименование" ;
-    rootData[SECOND] = "Значение";
-    rootItem = new TreeItem(rootData);
+    rootItem = new TreeHeaderItem();
 
-    rootItem->appendChild( new TreeItem(rootData) );
-    rootItem->appendChild( new TreeItem(rootData) );
+    rootItem->appendNewChild();
+    rootItem->appendNewChild();
 
-    rootItem->child(0)->appendChild( new TreeItem(rootData) );
+    for (int var = 0; var < 12; ++var)
+        rootItem->child(0)->appendNewChild();
 
-    rootItem->child(1)->appendChild( new TreeItem(rootData) );
-    rootItem->child(1)->child(0)->appendChild( new TreeItem(rootData) );
+
+    rootItem->child(1)->appendNewChild();
+    rootItem->child(1)->child(0)->appendNewChild();
 }
 
 TreeModel::~TreeModel()
@@ -97,7 +97,7 @@ Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return 0;
 
-    return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    return static_cast<TreeItem*>(index.internalPointer())->flags();
 }
 
 
@@ -127,7 +127,7 @@ void TreeModel::insertChild(QModelIndex& index)
     TreeItem* item = GetItemByIndex(index);
 
     beginInsertRows(index.parent(),index.row()+item->childCount(),index.row()+item->childCount()+1);
-    item->appendChild(new TreeItem(QHash<Column, QVariant>()));
+    item->appendNewChild();
     endInsertRows();
 }
 

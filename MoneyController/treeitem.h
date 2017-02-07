@@ -9,28 +9,35 @@
 class TreeItem
  {
  public:
-     TreeItem(const QHash< Column, QVariant > &data, TreeItem *parent = 0);
-     ~TreeItem();
+     TreeItem(const QHash< Column, QVariant > &data = QHash< Column, QVariant >() , TreeItem *parent = NULL);
+     virtual ~TreeItem();
 
      void appendChild(TreeItem *child);
+
+     virtual void appendNewChild() = 0;
+
      void removeFromTree(TreeItem *item_to_delete);
 
      TreeItem *child(int row);
      int childCount() const;
      int columnCount() const;
-     QVariant data(int column) const;
+     virtual QVariant data(int column) const;
      int row() const;
      TreeItem *parent();
-     QVariant& ItemData(int col);
 
+     virtual QVariant& ItemData(int col);
 
+     virtual Qt::ItemFlags flags();
 
-     QAction* GetAddAction();
+     virtual QAction* CreateAddAction();
+     virtual QAction* CreateDeleteAction();
 
-private:
-     QString GetChildName();
+protected:
+     virtual QString GetChildName();
+     static QHash< Column, QVariant > ColumnsData();
+     static QHash< Column, QVariant > EmptyData();
 
- private:
+ protected:
      QList<TreeItem*> childItems;
      QHash< Column, QVariant > itemData;
      TreeItem *parentItem;

@@ -1,10 +1,14 @@
 #include "treeitem.h"
 #include <QVariant>
+#include "Column.h"
 
 TreeItem::TreeItem(const QHash< Column, QVariant >  &data, TreeItem *parent)
 {
     parentItem = parent;
-    itemData = data;
+    if(data.size())
+        itemData=data;
+    else
+        itemData = EmptyData();
 }
 
 TreeItem::~TreeItem()
@@ -63,12 +67,47 @@ QVariant& TreeItem::ItemData(int col)
     return itemData[Column(col)];
 }
 
+Qt::ItemFlags TreeItem::flags()
+{
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+}
+
+QAction* TreeItem::CreateAddAction()
+{
+    return new QAction("Новый " + this->GetChildName(), 0);
+}
+
+QAction* TreeItem::CreateDeleteAction()
+{
+    QAction* del_act = new QAction("Удалить", 0);
+    del_act->setEnabled( childCount() == 0 ? true : false );
+    return del_act;
+}
+
 QString TreeItem::GetChildName()
 {
     return "";
 }
 
-QAction* TreeItem::GetAddAction()
+QHash< Column, QVariant > TreeItem::ColumnsData()
 {
-    return new QAction("Новый " + this->GetChildName(), 0);
+    QHash< Column, QVariant > columns_data;
+
+    columns_data[YEAR] = "Год";
+    columns_data[MONTH] = "Месяц";
+
+    return columns_data;
+}
+
+QHash< Column, QVariant > TreeItem::EmptyData()
+{
+    QHash< Column, QVariant > empty_data;
+
+    empty_data[YEAR] = "Год";
+    empty_data[MONTH] = "Месяц";
+
+    for (int i = START + 1; i < LAST; ++i)
+        empty_data[Column(i)] = QVariant();
+
+    return empty_data;
 }

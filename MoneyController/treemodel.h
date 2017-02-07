@@ -4,6 +4,7 @@
 #include <QAbstractTableModel>
 #include "Column.h"
 #include "treeitem.h"
+#include "treeheaderitem.h"
 #include <QMetaType>
 #include <QMenu>
 #include <QModelIndex>
@@ -13,7 +14,7 @@ class TreeModel : public QAbstractItemModel
      Q_OBJECT
 
 public:
-     TreeModel( QObject *parent = 0);
+     TreeModel( QObject *parent = NULL);
      ~TreeModel();
 
      QVariant data(const QModelIndex &index, int role) const;
@@ -35,7 +36,7 @@ public:
  private:
      void setupModelData(const QStringList &lines, TreeItem *parent);
 
-     TreeItem *rootItem;
+     TreeHeaderItem *rootItem;
 
      // QAbstractItemModel interface
 public:

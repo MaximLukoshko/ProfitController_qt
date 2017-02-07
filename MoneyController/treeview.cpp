@@ -25,15 +25,19 @@ void TreeView::onCustomMenuSelected(const QPoint &pos)
 
     TreeItem* item = GetModel()->GetItemByIndex(index);
 
-    QAction* addAct = item->GetAddAction();
-
-    addAct->setParent(this);
-    menu.addAction(addAct);
+    QAction* addAct = item->CreateAddAction();
+    if(addAct)
+    {
+        addAct->setParent(this);
+        menu.addAction(addAct);
+    }
 
     if( local )
     {
         connect(addAct, SIGNAL(triggered()),SLOT(on_add_child()));
-        QAction* deleteAct = new QAction("Удалить", this);
+
+        QAction* deleteAct = item->CreateDeleteAction();
+        deleteAct->setParent(this);
         connect(deleteAct, SIGNAL(triggered()),SLOT(on_delete_item()));
         menu.addAction(deleteAct);
     }

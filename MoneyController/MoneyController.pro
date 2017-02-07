@@ -16,13 +16,22 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     treemodel.cpp \
     treeitem.cpp \
-    treeview.cpp
+    treeview.cpp \
+    treeyearitem.cpp \
+    treemonthitem.cpp \
+    treeorderitem.cpp \
+    treeheaderitem.cpp
 
 HEADERS  += mainwindow.h \
     treemodel.h \
     treeitem.h \
     Column.h \
-    treeview.h
+    treeview.h \
+    treeyearitem.h \
+    treemonthitem.h \
+    treeorderitem.h \
+    treeheaderitem.h \
+    Month.h
 
 FORMS    += mainwindow.ui
 
