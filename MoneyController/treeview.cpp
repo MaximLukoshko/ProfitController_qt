@@ -22,7 +22,12 @@ void TreeView::onCustomMenuSelected(const QPoint &pos)
     QModelIndex index = indexAt(pos);
     bool local = index.isValid() ? true : false;
 
-    QAction* addAct = new QAction("Добавить", this);
+
+    TreeItem* item = GetModel()->GetItemByIndex(index);
+
+    QAction* addAct = item->GetAddAction();
+
+    addAct->setParent(this);
     menu.addAction(addAct);
 
     if( local )

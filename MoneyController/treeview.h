@@ -18,6 +18,8 @@ signals:
 
 private slots:
     void onCustomMenuSelected(const QPoint &pos);
+
+public slots:
     void on_add_child();
     void on_add_child_to_root();
     void on_delete_item();

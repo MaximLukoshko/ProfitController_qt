@@ -3,6 +3,8 @@
 
 #include <QHash>
 #include "Column.h"
+#include <QAction>
+
 
 class TreeItem
  {
@@ -20,6 +22,13 @@ class TreeItem
      int row() const;
      TreeItem *parent();
      QVariant& ItemData(int col);
+
+
+
+     QAction* GetAddAction();
+
+private:
+     QString GetChildName();
 
  private:
      QList<TreeItem*> childItems;

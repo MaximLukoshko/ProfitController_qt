@@ -1,4 +1,5 @@
 #include "treemodel.h"
+#include "treeview.h"
 
 TreeModel::TreeModel(QObject *parent)
     : QAbstractItemModel(parent)
@@ -123,10 +124,7 @@ bool TreeModel::setData(const QModelIndex& index, const QVariant& value, int rol
 
 void TreeModel::insertChild(QModelIndex& index)
 {
-    TreeItem* item = static_cast<TreeItem*>(index.internalPointer());
-
-    if(!item)
-        item = rootItem;
+    TreeItem* item = GetItemByIndex(index);
 
     beginInsertRows(index.parent(),index.row()+item->childCount(),index.row()+item->childCount()+1);
     item->appendChild(new TreeItem(QHash<Column, QVariant>()));
@@ -140,4 +138,14 @@ void TreeModel::deleteItem(QModelIndex& index)
     beginRemoveRows(index,index.row(),index.row());
     item->parent()->removeFromTree(item);
     endRemoveRows();
+}
+
+TreeItem* TreeModel::GetItemByIndex(QModelIndex &index)
+{
+    TreeItem* item = static_cast<TreeItem*>(index.internalPointer());
+
+    if(!item)
+        item = rootItem;
+
+    return item;
 }

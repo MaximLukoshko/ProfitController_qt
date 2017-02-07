@@ -62,3 +62,13 @@ QVariant& TreeItem::ItemData(int col)
 {
     return itemData[Column(col)];
 }
+
+QString TreeItem::GetChildName()
+{
+    return "";
+}
+
+QAction* TreeItem::GetAddAction()
+{
+    return new QAction("Новый " + this->GetChildName(), 0);
+}

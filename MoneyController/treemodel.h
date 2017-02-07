@@ -5,6 +5,8 @@
 #include "Column.h"
 #include "treeitem.h"
 #include <QMetaType>
+#include <QMenu>
+#include <QModelIndex>
 
 class TreeModel : public QAbstractItemModel
 {
@@ -26,6 +28,9 @@ public:
 
      void insertChild(QModelIndex& index);
      void deleteItem(QModelIndex& index);
+
+
+     TreeItem* GetItemByIndex(QModelIndex &index);
 
  private:
      void setupModelData(const QStringList &lines, TreeItem *parent);
