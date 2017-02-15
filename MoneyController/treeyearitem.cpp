@@ -27,10 +27,9 @@ QString TreeYearItem::GetChildName()
     return "месяц";
 }
 
-
-QAction*TreeYearItem::CreateAddAction()
+MenuFlags TreeYearItem::menuFlags()
 {
-    QAction* add_act = TreeItem::CreateAddAction();
-    add_act->setEnabled( childCount() < 12 ? true : false );
-    return add_act;
+    MenuFlags ret = TreeItem::menuFlags();
+    ret |= childCount() < 12 ?  ret : MF_AddMenuDisabled;
+    return ret;
 }

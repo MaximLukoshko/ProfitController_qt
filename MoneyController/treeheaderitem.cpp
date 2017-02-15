@@ -22,3 +22,9 @@ QString TreeHeaderItem::GetChildName()
 {
     return "год";
 }
+
+
+MenuFlags TreeHeaderItem::menuFlags()
+{
+    return TreeItem::menuFlags() & ~MF_DeleteMenuVisible;
+}

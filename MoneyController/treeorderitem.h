@@ -11,7 +11,10 @@ public:
     // TreeItem interface
 public:
     virtual void appendNewChild();
-    virtual QAction* CreateAddAction();
+
+    // TreeItem interface
+public:
+    virtual MenuFlags menuFlags();
 };
 
 #endif // TREEORDERITEM_H

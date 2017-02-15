@@ -14,6 +14,10 @@ public:
 
 protected:
     virtual QString GetChildName();
+
+    // TreeItem interface
+public:
+    virtual MenuFlags menuFlags();
 };
 
 #endif // TREEHEADERITEM_H

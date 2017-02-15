@@ -18,7 +18,7 @@ protected:
 
     // TreeItem interface
 public:
-    virtual QAction* CreateAddAction();
+    virtual MenuFlags menuFlags();
 };
 
 #endif // TREEYEARITEM_H

@@ -31,7 +31,8 @@ HEADERS  += mainwindow.h \
     treemonthitem.h \
     treeorderitem.h \
     treeheaderitem.h \
-    Month.h
+    Month.h \
+    MenuFlags.h
 
 FORMS    += mainwindow.ui
 

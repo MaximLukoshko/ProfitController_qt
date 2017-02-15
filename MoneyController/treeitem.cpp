@@ -72,16 +72,16 @@ Qt::ItemFlags TreeItem::flags()
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
-QAction* TreeItem::CreateAddAction()
+MenuFlags TreeItem::menuFlags()
 {
-    return new QAction("Новый " + this->GetChildName(), 0);
-}
+    MenuFlags ret = MF_NoMenuFlags;
 
-QAction* TreeItem::CreateDeleteAction()
-{
-    QAction* del_act = new QAction("Удалить", 0);
-    del_act->setEnabled( childCount() == 0 ? true : false );
-    return del_act;
+    ret |= MF_AddMenuVisible;
+
+    ret |= MF_DeleteMenuVisible;
+    ret |= childCount() == 0 ? ret : MF_DeleteMenuDisabled;
+
+    return ret;
 }
 
 QString TreeItem::GetChildName()

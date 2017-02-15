@@ -1,6 +1,7 @@
 #include "treeview.h"
 #include "treemodel.h"
 #include <QMenu>
+#include "MenuFlags.h"
 
 TreeView::TreeView(QWidget *parent) :
     QTreeView(parent)
@@ -22,28 +23,40 @@ void TreeView::onCustomMenuSelected(const QPoint &pos)
     QModelIndex index = indexAt(pos);
     bool local = index.isValid() ? true : false;
 
-
     TreeItem* item = GetModel()->GetItemByIndex(index);
+    MenuFlags itemMenuFlags = item->menuFlags();
 
-    QAction* addAct = item->CreateAddAction();
-    if(addAct)
+    if(itemMenuFlags==MF_NoMenuFlags)
+        return;
+
+    QAction* addAct = NULL;
+
+    if( itemMenuFlags&MF_AddMenuVisible )
     {
-        addAct->setParent(this);
+        addAct = new QAction("Новый " + item->GetChildName(), this);
+
+        if( local )
+            connect(addAct, SIGNAL(triggered()),SLOT(on_add_child()));
+        else
+            connect(addAct, SIGNAL(triggered()),SLOT(on_add_child_to_root()));
+
+        if(itemMenuFlags & MF_AddMenuDisabled)
+            addAct->setEnabled( false );
+
         menu.addAction(addAct);
     }
 
-    if( local )
-    {
-        connect(addAct, SIGNAL(triggered()),SLOT(on_add_child()));
 
-        QAction* deleteAct = item->CreateDeleteAction();
-        deleteAct->setParent(this);
-        connect(deleteAct, SIGNAL(triggered()),SLOT(on_delete_item()));
-        menu.addAction(deleteAct);
-    }
-    else
+    QAction* deleteAct = NULL;
+    if( itemMenuFlags&MF_DeleteMenuVisible )
     {
-        connect(addAct, SIGNAL(triggered()),SLOT(on_add_child_to_root()));
+        deleteAct = new QAction("Удалить", this);
+        connect(deleteAct, SIGNAL(triggered()),SLOT(on_delete_item()));
+
+        if(itemMenuFlags & MF_DeleteMenuDisabled)
+            deleteAct->setEnabled( false );
+
+        menu.addAction(deleteAct);
     }
 
     menu.exec(QCursor::pos());

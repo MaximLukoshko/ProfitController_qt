@@ -11,7 +11,8 @@ void TreeOrderItem::appendNewChild()
 {
 }
 
-QAction* TreeOrderItem::CreateAddAction()
+
+MenuFlags TreeOrderItem::menuFlags()
 {
-    return NULL;
+    return TreeItem::menuFlags() & ~MF_AddMenuVisible;
 }

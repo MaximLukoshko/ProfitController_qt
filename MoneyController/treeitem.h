@@ -4,7 +4,7 @@
 #include <QHash>
 #include "Column.h"
 #include <QAction>
-
+#include "MenuFlags.h"
 
 class TreeItem
  {
@@ -28,12 +28,11 @@ class TreeItem
      virtual QVariant& ItemData(int col);
 
      virtual Qt::ItemFlags flags();
+     virtual MenuFlags menuFlags();
 
-     virtual QAction* CreateAddAction();
-     virtual QAction* CreateDeleteAction();
+     virtual QString GetChildName();
 
 protected:
-     virtual QString GetChildName();
      static QHash< Column, QVariant > ColumnsData();
      static QHash< Column, QVariant > EmptyData();
 
