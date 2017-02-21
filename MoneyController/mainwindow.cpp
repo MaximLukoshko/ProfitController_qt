@@ -4,6 +4,7 @@
 #include "treeview.h"
 #include <QStandardItemModel>
 #include <QAction>
+#include "dao.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     treeView->setModel(model);
 
     ui->gridLayout->addWidget(treeView, 0, 0, 1, 1);
+
+    treeView->setColumnWidth( 0, 105 );
 }
 
 MainWindow::~MainWindow()

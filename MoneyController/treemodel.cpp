@@ -1,25 +1,17 @@
 #include "treemodel.h"
 #include "treeview.h"
 #include "treeheaderitem.h"
+#include "dao.h"
 
 TreeModel::TreeModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
-    rootItem = new TreeHeaderItem();
-
-    rootItem->appendNewChild();
-    rootItem->appendNewChild();
-
-    for (int var = 0; var < 12; ++var)
-        rootItem->child(0)->appendNewChild();
-
-
-    rootItem->child(1)->appendNewChild();
-    rootItem->child(1)->child(0)->appendNewChild();
+    DAO::LoadModel(this);
 }
 
 TreeModel::~TreeModel()
 {
+    DAO::SaveModel(this);
     delete rootItem;
 }
 

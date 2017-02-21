@@ -12,7 +12,7 @@ void TreeHeaderItem::appendNewChild()
 {
     int year = 2015;
     if( childCount() > 0 )
-        year = child( childCount() - 1 )->ItemData(YEAR).toInt() + 1;
+        year = child( childCount() - 1 )->ItemData(DATE).toInt() + 1;
 
     TreeYearItem* newItem = new TreeYearItem(year, this);
     childItems.append(newItem);

@@ -14,6 +14,10 @@ public:
 
 protected:
     virtual QString GetChildName();
+
+    // TreeItem interface
+public:
+    virtual QVariant data(int column) const;
 };
 
 #endif // TREEMONTHITEM_H

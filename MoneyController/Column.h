@@ -5,8 +5,8 @@
 
 enum Column {
     START = -1,
-    YEAR,
-    MONTH,
+    DATE,
+    INFO_DATA,
     LAST
 };
 

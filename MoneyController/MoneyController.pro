@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     treeyearitem.cpp \
     treemonthitem.cpp \
     treeorderitem.cpp \
-    treeheaderitem.cpp
+    treeheaderitem.cpp \
+    dao.cpp
 
 HEADERS  += mainwindow.h \
     treemodel.h \
@@ -32,7 +33,8 @@ HEADERS  += mainwindow.h \
     treeorderitem.h \
     treeheaderitem.h \
     Month.h \
-    MenuFlags.h
+    MenuFlags.h \
+    dao.h
 
 FORMS    += mainwindow.ui
 

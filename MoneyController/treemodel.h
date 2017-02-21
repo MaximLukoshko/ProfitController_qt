@@ -8,10 +8,12 @@
 #include <QMetaType>
 #include <QMenu>
 #include <QModelIndex>
+#include "dao.h"
 
 class TreeModel : public QAbstractItemModel
 {
      Q_OBJECT
+    friend class DAO;
 
 public:
      TreeModel( QObject *parent = NULL);

@@ -4,7 +4,7 @@
 TreeYearItem::TreeYearItem(int year, TreeItem *parent, const QHash< Column, QVariant >  &data)
     : TreeItem(data, parent)
 {
-    itemData[YEAR] = year;
+    itemData[DATE] = year;
 }
 
 
@@ -16,7 +16,7 @@ void TreeYearItem::appendNewChild()
     int month = JANUARY;
 
     if( childCount() > 0 )
-        month = child( childCount() - 1 )->ItemData(MONTH).toInt() + 1;
+        month = child( childCount() - 1 )->ItemData(DATE).toInt() + 1;
 
     TreeMonthItem* newItem = new TreeMonthItem(month, this);
     childItems.append(newItem);

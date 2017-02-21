@@ -8,6 +8,9 @@
 
 class TreeItem
  {
+protected:
+    static long NextCode;
+
  public:
      TreeItem(const QHash< Column, QVariant > &data = QHash< Column, QVariant >() , TreeItem *parent = NULL);
      virtual ~TreeItem();
@@ -37,6 +40,7 @@ protected:
      static QHash< Column, QVariant > EmptyData();
 
  protected:
+     long Code;
      QList<TreeItem*> childItems;
      QHash< Column, QVariant > itemData;
      TreeItem *parentItem;

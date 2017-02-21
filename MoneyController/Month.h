@@ -8,7 +8,7 @@ enum Month {
     APRIL    = 4,
     MAY      = 5,
     JUNE     = 6,
-    JULE     = 7,
+    JULY     = 7,
     AUGUST   = 8,
     SEPTEMBER= 9,
     OCTOBER  = 10,

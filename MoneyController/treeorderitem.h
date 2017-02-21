@@ -15,6 +15,14 @@ public:
     // TreeItem interface
 public:
     virtual MenuFlags menuFlags();
+
+    // TreeItem interface
+public:
+    virtual Qt::ItemFlags flags();
+
+    // TreeItem interface
+public:
+    virtual QVariant data(int column) const;
 };
 
 #endif // TREEORDERITEM_H

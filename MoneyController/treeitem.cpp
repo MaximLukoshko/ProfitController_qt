@@ -2,8 +2,11 @@
 #include <QVariant>
 #include "Column.h"
 
+long TreeItem::NextCode = 100;
+
 TreeItem::TreeItem(const QHash< Column, QVariant >  &data, TreeItem *parent)
 {
+    Code = NextCode++;
     parentItem = parent;
     if(data.size())
         itemData=data;
@@ -80,6 +83,8 @@ MenuFlags TreeItem::menuFlags()
 
     ret |= MF_DeleteMenuVisible;
     ret |= childCount() == 0 ? ret : MF_DeleteMenuDisabled;
+    ret |= parentItem && row() == parentItem->childCount() - 1 ?
+               ret : MF_DeleteMenuDisabled;
 
     return ret;
 }
@@ -93,8 +98,8 @@ QHash< Column, QVariant > TreeItem::ColumnsData()
 {
     QHash< Column, QVariant > columns_data;
 
-    columns_data[YEAR] = "Год";
-    columns_data[MONTH] = "Месяц";
+    columns_data[DATE] = // "Дата";
+    columns_data[INFO_DATA] = "Данные";
 
     return columns_data;
 }
@@ -103,8 +108,8 @@ QHash< Column, QVariant > TreeItem::EmptyData()
 {
     QHash< Column, QVariant > empty_data;
 
-    empty_data[YEAR] = "Год";
-    empty_data[MONTH] = "Месяц";
+    empty_data[DATE] = 0;
+    empty_data[INFO_DATA] = "Информация по заказу";
 
     for (int i = START + 1; i < LAST; ++i)
         empty_data[Column(i)] = QVariant();
